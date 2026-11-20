@@ -1,14 +1,15 @@
-Feature: login feature
+Feature: Login
   As a user
   I want to login
   So I can see my dashboard
 
-  Scenario: Admin loggs in whith valid credentials
+  Scenario Outline: User logs in with valid credentials
     Given the user has navigated to the login page
-    When the user logs in with username "demo" and password "demo"
+    When the user logs in with username "<username>" and password "<pwd>"
     Then the user should be navigated to the dashboard
+    And ther user should have <priv> priviledges
 
-  Scenario: A registered user loggs in with valid credentials
-    Given the user has navigated to the login page
-    When the user logs in with username "Alice" and password "aliceDemo@123"
-    Then the user should be navigated to the dashboard
+    Examples:
+    |user|pwd|priv|
+    |demo|demo|admin|
+    |Alice|alice|user|
