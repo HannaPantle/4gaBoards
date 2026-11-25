@@ -7,42 +7,43 @@ Feature: Create an account
     Given the user is on the registration page
 
   Scenario Outline: Reject invalid email
-    When the user tries to create an account with email "<email>"
-    Then the account creation should be unsuccessful
+    When the user tries to create an account with email "<email>" and password "testTest1"
+    Then no account should be created
     And the Email input field should be highlighted
 
     Examples:
-    |email      |
-    |test       |
-    |test@test  |
-    |test.test  |
+    | email      |
+    |            |
+    | test       |
+    | test.test  |
+    | test@      |
 
-  Scenario: Missing password
-    When the user tries to create an account with email "test@test.com" and has not entered a password
-    Then the account creation should be unsuccessful
+  Scenario: Reject empty password
+    When the user tries to create an account with email "test@test.com" and password ""
+    Then no account should be created
     And the Password input field should be highlighted
 
   Scenario Outline: Reject weak password
     When the user tries to create an account with email "test@test.com" and password "<password>"
-    Then the account creation should be unsuccessful
+    Then no account should be created
     And the Password input field should be highlighted
     And the message 'Please use a stronger password' should be displayed
 
     Examples:
-    |password   |
-    |hello      |
-    |hello1>    |
-    |helloHello |
+    | password   |
+    | hello      |
+    | hello1>    |
+    | helloHello |
 
-  Scenario: Terms and conditions not accepted
-    When the user tries to create an account with email "test@test.com", password "<password>"
-    And the user has not accepted the 'Terms of Service' and 'Privacy Policy'
-    Then Then the account creation should be unsuccessful
-    And the Accept Terms of Service and Privacy Policy checkbox has been highlighted
-    And the message 'Please accept Terms of Service and Provacy Policy' is displayed
+  Scenario: Reject not accepted terms and conditions
+    When the user tries to create an account with email "test@test.com" and password "testTest1"
+    And the user has not accepted the 'Terms of Service and Privacy Policy'
+    Then no account should be created
+    And the Accept Terms of Service and Privacy Policy checkbox should be highlighted
+    And the message 'Please accept Terms of Service and Provacy Policy' should be displayed
 
   Scenario: User registers sucessfully
-    When the user tries to create an account with email "test@test.com", password "<password>"
-    And the user has accepted the 'Terms of Service' and 'Privacy Policy'
-    Then the dashboard is displayed
-    And the user is registered
+    When the user tries to create an account with email "test@test.com" and password "testTest1"
+    And the user has accepted the 'Terms of Service and Privacy Policy'
+    Then the dashboard should be displayed
+    And an account should be created
