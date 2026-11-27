@@ -1,13 +1,13 @@
 Feature: Edit Profile
   As a user
   I want to edit my Profile
-  To depict my Name, Phone Number and Organisation
+  So that my Name, Phone Number and Organisation are up to date
 
   Background:
-    Given: If the user is logged in
-    And: The user has navigated to the profile settings page
+    Given The user has logged in
+    And The user has navigated to the profile settings page
 
-  Scenario: Empty name field
+  Scenario: Save the profile with empty name field
     When the user tries to save the profile settings and has not entered a name into the Name field
     Then the prfile updates are not saved
     And the name fiel is highlighted
