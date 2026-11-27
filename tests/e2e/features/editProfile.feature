@@ -8,12 +8,12 @@ Feature: Edit Profile
     And The user has navigated to the profile settings page
 
   Scenario: Save the profile with empty name field
-    When the user tries to save the profile settings and has not entered a name into the Name field
-    Then the prfile updates are not saved
-    And the name fiel is highlighted
+    When the user tries to save the profile with an empty name
+    Then the profile updates are not saved
+    And the name field is highlighted
 
   Scenario: Editing the profile without any changes
-    Given the following information was saved into the user profile
+    Given the following information was saved into the user profile:
       |Name         |Alice      |
       |Phone        |           |
       |Organisation |           |
